@@ -41,9 +41,11 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
-    ok = application:start(crypto),
-    ok = application:start(public_key),
-    ok = application:start(ssl),
+    % not start this applications because e-apns could be integrated in
+    % another app (uncomment just for debugging).
+    % ok = application:start(crypto),
+    % ok = application:start(public_key),
+    % ok = application:start(ssl),
     'e-apns_sup':start_link().
 
 stop(_State) ->
