@@ -1,5 +1,5 @@
 ==========================================================================================================
-e-apns - An erlang library APNS services
+e-apns - An erlang server for APNS
 
 Copyright (C) 2013, Jorge Garrido <jorge.garrido@morelosoft.com>
 
