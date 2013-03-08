@@ -1,7 +1,7 @@
 e-apns
 ======
 
-erlang APNS 
+erlang server for APNS 
 
 for more info about APNS [check this](http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingWIthAPS/CommunicatingWIthAPS.html#//apple_ref/doc/uid/TP40008194-CH101-SW1)
 building
