@@ -118,6 +118,9 @@ init([]) ->
 %%                                   {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
+handle_call(loaded_resource, _From, State=#state{ssl_alive=[], address=_Address, port=_Port,
+                                                        options=_Options, timeout=_Timeout}) ->
+    {reply, {ok, unset}, State};
 handle_call(loaded_resource, _From, State=#state{ssl_alive=[{SslSocket, From}|_], address=_Address, port=_Port,
 							options=_Options, timeout=_Timeout}) ->
     {reply, {ok, {ok, SslSocket, From}}, State};
