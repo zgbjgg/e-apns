@@ -35,7 +35,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/0, get_resource_apns/0, push_apns/5]).
+-export([start_link/0, stop/0, get_loaded_resource/0, get_resource_apns/0, push_apns/5]).
 
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -51,12 +51,18 @@
 %%% API
 %%%===================================================================
 
+get_loaded_resource() ->
+    gen_server:call(?MODULE, loaded_resource).
+
 get_resource_apns() ->
     gen_server:call(?MODULE, resource_apns, 10000).
 
 push_apns(Resource, Identifier, Expiry, Token, {Alert, Sound, Badge}) ->
     Packet = 'e-apns_u':packet(Identifier, Expiry, 'e-apns_u':hex_token(Token), 'e-apns_u':payload(Alert, Sound, Badge)),
     gen_server:cast(?MODULE, {push_apns, Packet, Resource}). 
+
+stop() ->
+    gen_server:call(?MODULE, stop).
 
 %%--------------------------------------------------------------------
 %% @doc
@@ -112,6 +118,9 @@ init([]) ->
 %%                                   {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
+handle_call(loaded_resource, _From, State=#state{ssl_alive=[{SslSocket, From}|_], address=_Address, port=_Port,
+							options=_Options, timeout=_Timeout}) ->
+    {reply, {ok, {ok, SslSocket, From}}, State};
 handle_call(resource_apns, {From, _Ref}, State=#state{ssl_alive=Alive, address=Address, port=Port,
 							    options=Options, timeout=Timeout}) ->
     case ssl:connect(Address, Port, Options, Timeout) of
