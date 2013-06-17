@@ -91,7 +91,8 @@ start_link() ->
 %%--------------------------------------------------------------------
 init([]) ->
     process_flag(trap_exit, true),
-    Config = "priv/e-apns.config",
+    Ebin = filename:dirname(code:which('e-apns')),
+    Config = filename:join(filename:dirname(Ebin), "priv") ++ "/e-apns.config",    
     case file:consult(Config) of
 	{error, FileError} ->
             io:format("I(~p) [e-apns] apns error to initialize: ~p \n", [self(), FileError]),
