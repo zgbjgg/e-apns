@@ -19,8 +19,8 @@ configure the config file under priv directory, setting all parameters to valid 
 
 		- address_apns:		address for APNS server
 		- port_apns:		port for APNS server
-		- certfile_apns:	certificate file (created from .cer file)
-		- keyfile_apns:		key file (created from .p12 file)
+		- certfile_apns:	certificate file (created from .cer file)(you can use .pem from dev center)
+		- keyfile_apns:		key file (created from .p12 file)(you can use .pem from dev center)
 		- password_apns:	password for connect to APNS server 
 		- timeout_apns:		max time for waiting a valid connection to APNS server
 
